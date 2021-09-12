@@ -1,0 +1,39 @@
+<idea-plugin require-restart="true">
+    <id>lermitage.intellij.worldclock</id>
+    <name>WorldClock</name>
+    <version>REPLACED_BY_GRADLE</version>
+    <vendor email="jonathan.lermitage@gmail.com" url="https://github.com/jonathanlermitage">Jonathan Lermitage</vendor>
+
+    <description><![CDATA[
+      Shows current time at Montreal (Canada) and Paris (France) in the status bar.
+    ]]>
+    </description>
+
+    <change-notes><![CDATA[
+      First version.
+    ]]>
+    </change-notes>
+
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
+    <idea-version since-build="201"/>
+
+    <!-- please see https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html#modules-available-in-all-products
+         on how to target different products -->
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+
+        <statusBarWidgetFactory implementation="lermitage.intellij.worldclock.statusbar.ClockWidgetFactory"
+                                id="lermitage.intellij.worldclock.statusbar.ClockWidgetFactory"
+                                order="first, after lermitage.intellij.battery.status.statusbar.BatteryStatusWidgetFactory, after lermitage.intellij.nightandday.statusbar.TextStatusWidgetFactory, after lermitage.intellij.nightandday.statusbar.ProgressbarStatusWidgetFactor"/>
+        <statusBarWidgetFactory implementation="lermitage.intellij.worldclock.statusbar.ClockWidgetFactory2"
+                                id="lermitage.intellij.worldclock.statusbar.ClockWidgetFactory2"
+                                order="first, after lermitage.intellij.battery.status.statusbar.BatteryStatusWidgetFactory, before lermitage.intellij.nightandday.statusbar.TextStatusWidgetFactory, after lermitage.intellij.nightandday.statusbar.ProgressbarStatusWidgetFactoy, after lermitage.intellij.worldclock.statusbar.ClockWidgetFactory"/>
+    </extensions>
+
+    <actions>
+        <!-- Add your actions here -->
+    </actions>
+
+</idea-plugin>
