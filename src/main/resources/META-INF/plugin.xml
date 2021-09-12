@@ -25,11 +25,11 @@
         <!-- Add your extensions here -->
 
         <statusBarWidgetFactory implementation="lermitage.intellij.worldclock.statusbar.ClockWidgetFactory"
-                                id="lermitage.intellij.worldclock.statusbar.ClockWidgetFactory"
-                                order="first, after lermitage.intellij.battery.status.statusbar.BatteryStatusWidgetFactory, after lermitage.intellij.nightandday.statusbar.TextStatusWidgetFactory, after lermitage.intellij.nightandday.statusbar.ProgressbarStatusWidgetFactor"/>
+                                id="lermitage-worldclock-one"
+                                order="first, after lermitage.intellij.battery.status.statusbar.BatteryStatusWidgetFactory, after lermitage.intellij.nightandday.statusbar.TextStatusWidgetFactory, after lermitage.intellij.nightandday.statusbar.ProgressbarStatusWidgetFactory"/>
         <statusBarWidgetFactory implementation="lermitage.intellij.worldclock.statusbar.ClockWidgetFactory2"
-                                id="lermitage.intellij.worldclock.statusbar.ClockWidgetFactory2"
-                                order="first, after lermitage.intellij.battery.status.statusbar.BatteryStatusWidgetFactory, before lermitage.intellij.nightandday.statusbar.TextStatusWidgetFactory, after lermitage.intellij.nightandday.statusbar.ProgressbarStatusWidgetFactoy, after lermitage.intellij.worldclock.statusbar.ClockWidgetFactory"/>
+                                id="lermitage-worldclock-two"
+                                order="first, after lermitage-worldclock-one"/>
     </extensions>
 
     <actions>
