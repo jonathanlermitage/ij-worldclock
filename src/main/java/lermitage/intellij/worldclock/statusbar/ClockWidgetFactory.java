@@ -14,7 +14,7 @@ public class ClockWidgetFactory implements StatusBarWidgetFactory {
     @NotNull
     @Override
     public String getId() {
-        return Globals.PLUGIN_ID;
+        return Globals.WIDGET_ID;
     }
 
     @Nls
@@ -32,7 +32,7 @@ public class ClockWidgetFactory implements StatusBarWidgetFactory {
     @NotNull
     @Override
     public StatusBarWidget createWidget(@NotNull Project project) {
-        return new ClockStatusWidget(project, Globals.PLUGIN_ID, "ca.svg", DateUtils.caZoneId);
+        return new ClockStatusWidget(project, Globals.WIDGET_ID, "ca.svg", DateUtils.caZoneId);
     }
 
     @Override

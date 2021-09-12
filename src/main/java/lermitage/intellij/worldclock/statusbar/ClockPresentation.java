@@ -9,7 +9,6 @@ import com.intellij.openapi.wm.StatusBar;
 import com.intellij.openapi.wm.StatusBarWidget;
 import com.intellij.util.Consumer;
 import lermitage.intellij.worldclock.DateUtils;
-import lermitage.intellij.worldclock.Globals;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -65,7 +64,7 @@ class ClockPresentation implements StatusBarWidget.MultipleTextValuesPresentatio
 
     @Override
     public @NotNull String ID() {
-        return Globals.PLUGIN_ID;
+        return widgetId;
     }
 
     @Override

@@ -5,6 +5,6 @@ import lermitage.intellij.worldclock.statusbar.ClockWidgetFactory2;
 
 public class Globals {
 
-    public static final String PLUGIN_ID = ClockWidgetFactory.class.getName();
-    public static final String PLUGIN_ID_2 = ClockWidgetFactory2.class.getName();
+    public static final String WIDGET_ID = ClockWidgetFactory.class.getName();
+    public static final String WIDGET_ID_2 = ClockWidgetFactory2.class.getName();
 }

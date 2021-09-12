@@ -5,7 +5,6 @@ import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.wm.StatusBar;
 import com.intellij.openapi.wm.StatusBarWidget;
-import lermitage.intellij.worldclock.Globals;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -34,7 +33,7 @@ public class ClockStatusWidget implements StatusBarWidget {
     @NotNull
     @Override
     public String ID() {
-        return Globals.PLUGIN_ID;
+        return widgetId;
     }
 
     @Nullable
