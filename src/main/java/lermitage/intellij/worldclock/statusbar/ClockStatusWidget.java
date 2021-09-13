@@ -2,7 +2,6 @@ package lermitage.intellij.worldclock.statusbar;
 
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.diagnostic.Logger;
-import com.intellij.openapi.project.Project;
 import com.intellij.openapi.wm.StatusBar;
 import com.intellij.openapi.wm.StatusBarWidget;
 import org.jetbrains.annotations.Contract;
@@ -15,7 +14,6 @@ import java.time.ZoneId;
 public class ClockStatusWidget implements StatusBarWidget {
 
     private final Logger LOG = Logger.getInstance(getClass().getName());
-    private final Project project;
     private final String widgetId;
     private final String icon;
     private final ZoneId zoneId;
@@ -23,8 +21,7 @@ public class ClockStatusWidget implements StatusBarWidget {
     private Thread updateThread = null;
 
     @Contract(pure = true)
-    public ClockStatusWidget(Project project, String widgetId, String icon, ZoneId zoneId) {
-        this.project = project;
+    public ClockStatusWidget(String widgetId, String icon, ZoneId zoneId) {
         this.widgetId = widgetId;
         this.icon = icon;
         this.zoneId = zoneId;
@@ -39,7 +36,7 @@ public class ClockStatusWidget implements StatusBarWidget {
     @Nullable
     @Override
     public WidgetPresentation getPresentation() {
-        return new ClockPresentation(project, this, widgetId, icon, zoneId);
+        return new ClockPresentation(this, widgetId, icon, zoneId);
     }
 
     @Override

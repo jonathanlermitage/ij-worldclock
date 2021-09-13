@@ -1,7 +1,6 @@
 package lermitage.intellij.worldclock.statusbar;
 
 import com.intellij.openapi.Disposable;
-import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.popup.ListPopup;
 import com.intellij.openapi.util.Disposer;
 import com.intellij.openapi.util.IconLoader;
@@ -18,15 +17,13 @@ import java.time.ZoneId;
 
 class ClockPresentation implements StatusBarWidget.MultipleTextValuesPresentation, StatusBarWidget.Multiframe {
 
-    public ClockPresentation(Project project, Disposable widget, String widgetId, String icon, ZoneId zoneId) {
-        this.project = project;
+    public ClockPresentation(Disposable widget, String widgetId, String icon, ZoneId zoneId) {
         this.widget = widget;
         this.widgetId = widgetId;
         this.icon = icon;
         this.zoneId = zoneId;
     }
 
-    private final Project project;
     private final Disposable widget;
     private final String widgetId;
     private final String icon;
@@ -59,7 +56,7 @@ class ClockPresentation implements StatusBarWidget.MultipleTextValuesPresentatio
 
     @Override
     public StatusBarWidget copy() {
-        return new ClockStatusWidget(project, widgetId, icon, zoneId);
+        return new ClockStatusWidget(widgetId, icon, zoneId);
     }
 
     @Override

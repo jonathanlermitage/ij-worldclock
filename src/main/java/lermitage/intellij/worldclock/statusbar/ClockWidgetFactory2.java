@@ -32,7 +32,7 @@ public class ClockWidgetFactory2 implements StatusBarWidgetFactory {
     @NotNull
     @Override
     public StatusBarWidget createWidget(@NotNull Project project) {
-        return new ClockStatusWidget(project, Globals.WIDGET_ID_2, "fr.svg", DateUtils.frZoneId);
+        return new ClockStatusWidget(Globals.WIDGET_ID_2, "fr.svg", DateUtils.frZoneId);
     }
 
     @Override
