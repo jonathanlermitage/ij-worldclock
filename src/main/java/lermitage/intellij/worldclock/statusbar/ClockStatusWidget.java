@@ -1,7 +1,6 @@
 package lermitage.intellij.worldclock.statusbar;
 
 import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.wm.StatusBar;
 import com.intellij.openapi.wm.StatusBarWidget;
 import org.jetbrains.annotations.Contract;
@@ -9,16 +8,16 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.time.ZoneId;
+import java.util.Timer;
+import java.util.TimerTask;
 
 @SuppressWarnings("WeakerAccess")
 public class ClockStatusWidget implements StatusBarWidget {
 
-    private final Logger LOG = Logger.getInstance(getClass().getName());
     private final String widgetId;
     private final String icon;
     private final ZoneId zoneId;
-    private boolean forceExit = false;
-    private Thread updateThread = null;
+    private Timer timer;
 
     @Contract(pure = true)
     public ClockStatusWidget(String widgetId, String icon, ZoneId zoneId) {
@@ -44,17 +43,15 @@ public class ClockStatusWidget implements StatusBarWidget {
         ApplicationManager.getApplication().executeOnPooledThread(() -> updateWidget(statusBar));
     }
 
-    @SuppressWarnings("BusyWait")
     private void updateWidget(StatusBar statusBar) {
         try {
-            updateThread = Thread.currentThread();
-            LOG.info("Registered updateThread " + updateThread.getId());
-            while (!forceExit) {
-                statusBar.updateWidget(widgetId);
-                Thread.sleep(30_000);
-            }
-        } catch (InterruptedException e) {
-            LOG.info("App disposed, forced updateThread interruption.");
+            timer = new Timer();
+            timer.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    statusBar.updateWidget(widgetId);
+                }
+            }, 0, 30_000);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -62,10 +59,9 @@ public class ClockStatusWidget implements StatusBarWidget {
 
     @Override
     public void dispose() {
-        forceExit = true;
-        if (updateThread != null && !updateThread.isInterrupted()) {
-            LOG.info("Interrupting updateThread " + updateThread.getId());
-            updateThread.interrupt();
+        if (timer != null) {
+            timer.cancel();
+            timer.purge();
         }
     }
 }
