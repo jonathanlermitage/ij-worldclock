@@ -35,7 +35,7 @@ public class ClockStatusWidget implements StatusBarWidget {
     @Nullable
     @Override
     public WidgetPresentation getPresentation() {
-        return new ClockPresentation(this, widgetId, icon, zoneId);
+        return new ClockPresentation(icon, zoneId);
     }
 
     @Override
