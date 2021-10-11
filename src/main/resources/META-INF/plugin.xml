@@ -24,6 +24,7 @@
     <extensions defaultExtensionNs="com.intellij">
         <!-- Add your extensions here -->
 
+        <!--suppress PluginXmlValidity (can't find third-party plugins, but it's OK) -->
         <statusBarWidgetFactory implementation="lermitage.intellij.worldclock.statusbar.ClockWidgetFactory"
                                 id="lermitage-worldclock-one"
                                 order="first, after lermitage.intellij.battery.status.statusbar.BatteryStatusWidgetFactory, after lermitage.intellij.nightandday.statusbar.TextStatusWidgetFactory, after lermitage.intellij.nightandday.statusbar.ProgressbarStatusWidgetFactory"/>
