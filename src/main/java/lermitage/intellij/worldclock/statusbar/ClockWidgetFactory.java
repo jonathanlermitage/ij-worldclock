@@ -4,7 +4,6 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.wm.StatusBar;
 import com.intellij.openapi.wm.StatusBarWidget;
 import com.intellij.openapi.wm.StatusBarWidgetFactory;
-import lermitage.intellij.worldclock.DateUtils;
 import lermitage.intellij.worldclock.Globals;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NotNull;
@@ -32,7 +31,7 @@ public class ClockWidgetFactory implements StatusBarWidgetFactory {
     @NotNull
     @Override
     public StatusBarWidget createWidget(@NotNull Project project) {
-        return new ClockStatusWidget(Globals.WIDGET_ID, "ca.svg", DateUtils.caZoneId);
+        return new ClockStatusWidget(Globals.WIDGET_ID, project);
     }
 
     @Override

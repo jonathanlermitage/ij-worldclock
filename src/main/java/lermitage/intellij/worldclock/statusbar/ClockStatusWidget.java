@@ -1,13 +1,14 @@
 package lermitage.intellij.worldclock.statusbar;
 
 import com.intellij.openapi.application.ApplicationManager;
+import com.intellij.openapi.project.Project;
 import com.intellij.openapi.wm.StatusBar;
 import com.intellij.openapi.wm.StatusBarWidget;
+import com.intellij.openapi.wm.WindowManager;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.time.ZoneId;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -15,15 +16,13 @@ import java.util.TimerTask;
 public class ClockStatusWidget implements StatusBarWidget {
 
     private final String widgetId;
-    private final String icon;
-    private final ZoneId zoneId;
+    private final StatusBar statusBar;
     private Timer timer;
 
     @Contract(pure = true)
-    public ClockStatusWidget(String widgetId, String icon, ZoneId zoneId) {
+    public ClockStatusWidget(String widgetId, Project project) {
         this.widgetId = widgetId;
-        this.icon = icon;
-        this.zoneId = zoneId;
+        this.statusBar = WindowManager.getInstance().getStatusBar(project);
     }
 
     @NotNull
@@ -35,15 +34,20 @@ public class ClockStatusWidget implements StatusBarWidget {
     @Nullable
     @Override
     public WidgetPresentation getPresentation() {
-        return new ClockPresentation(icon, zoneId);
+        return new ClockPresentation(widgetId);
     }
 
     @Override
     public void install(@NotNull StatusBar statusBar) {
-        ApplicationManager.getApplication().executeOnPooledThread(() -> updateWidget(statusBar));
+        ApplicationManager.getApplication().executeOnPooledThread(() -> startIfNeeded(statusBar));
     }
 
-    private void updateWidget(StatusBar statusBar) {
+    public void reload() {
+        dispose();
+        startIfNeeded(statusBar);
+    }
+
+    private void startIfNeeded(StatusBar statusBar) {
         try {
             timer = new Timer();
             timer.scheduleAtFixedRate(new TimerTask() {

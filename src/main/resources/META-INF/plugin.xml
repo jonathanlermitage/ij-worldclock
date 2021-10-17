@@ -1,16 +1,23 @@
-<idea-plugin require-restart="true">
+<idea-plugin require-restart="false">
     <id>lermitage.intellij.worldclock</id>
-    <name>WorldClock</name>
+    <name>World Clock</name>
     <version>REPLACED_BY_GRADLE</version>
     <vendor email="jonathan.lermitage@gmail.com" url="https://github.com/jonathanlermitage">Jonathan Lermitage</vendor>
 
     <description><![CDATA[
-      Shows current time at Montreal (Canada) and Paris (France) in the status bar.
+      Show one or two customizable clocks in the status bar. By default, shows current time at Montreal (Canada) and Paris (France). See configuration in <i>File</i> &gt; <i>Settings...</i> &gt; <i>Appearance</i> &gt; <i>World Clock</i>.
     ]]>
     </description>
 
     <change-notes><![CDATA[
-      First version.
+    1.1.0 (2021/10/17)
+    <ul>
+      <li>First release.</li>
+    </ul>
+    1.0.0
+    <ul>
+      <li>POC. Not published.</li>
+    </ul>
     ]]>
     </change-notes>
 
@@ -23,7 +30,7 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <!-- Add your extensions here -->
-
+        <applicationService serviceImplementation="lermitage.intellij.worldclock.cfg.SettingsService"/>
         <!--suppress PluginXmlValidity (can't find third-party plugins, but it's OK) -->
         <statusBarWidgetFactory implementation="lermitage.intellij.worldclock.statusbar.ClockWidgetFactory"
                                 id="lermitage-worldclock-one"
@@ -31,6 +38,10 @@
         <statusBarWidgetFactory implementation="lermitage.intellij.worldclock.statusbar.ClockWidgetFactory2"
                                 id="lermitage-worldclock-two"
                                 order="first, after lermitage-worldclock-one"/>
+        <applicationConfigurable instance="lermitage.intellij.worldclock.cfg.gui.SettingsForm"
+                                 id="LermitageWorldClock"
+                                 displayName="World Clock"
+                                 parentId="appearance"/>
     </extensions>
 
     <actions>

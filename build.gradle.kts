@@ -26,6 +26,10 @@ repositories {
     mavenCentral()
 }
 
+dependencies {
+    implementation("icu4j:icu4j:2.6.1")
+}
+
 intellij {
     downloadSources.set(pluginDownloadIdeaSources.toBoolean() && !inCI)
     instrumentCode.set(pluginInstrumentPluginCode.toBoolean())
