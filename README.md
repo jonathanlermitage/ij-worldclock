@@ -34,8 +34,8 @@ Jonathan Lermitage (<jonathan.lermitage@gmail.com>, [![linkedin](misc/linkedin_p
 
 Clocks in status bar:
 
-![clocks](misc/screenshots/statusbar.png)
+![clocks](misc/statusbar.png)
 
 Configuration panel:
 
-![clocks](misc/screenshots/config.png)
+![clocks](misc/config.png)
