@@ -5,6 +5,8 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.wm.StatusBar;
 import com.intellij.openapi.wm.StatusBarWidget;
 import com.intellij.openapi.wm.WindowManager;
+import lermitage.intellij.worldclock.Globals;
+import lermitage.intellij.worldclock.cfg.SettingsService;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -14,6 +16,8 @@ import java.util.TimerTask;
 
 @SuppressWarnings("WeakerAccess")
 public class ClockStatusWidget implements StatusBarWidget {
+
+    private final SettingsService settingsService = ApplicationManager.getApplication().getService(SettingsService.class);
 
     private final String widgetId;
     private final StatusBar statusBar;
@@ -48,16 +52,19 @@ public class ClockStatusWidget implements StatusBarWidget {
     }
 
     private void startIfNeeded(StatusBar statusBar) {
-        try {
-            timer = new Timer();
-            timer.scheduleAtFixedRate(new TimerTask() {
-                @Override
-                public void run() {
-                    statusBar.updateWidget(widgetId);
-                }
-            }, 0, 30_000);
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (widgetId.equals(Globals.WIDGET_ID) && settingsService.getEnableClock1() ||
+                widgetId.equals(Globals.WIDGET_ID_2) && settingsService.getEnableClock2()) {
+            try {
+                timer = new Timer();
+                timer.scheduleAtFixedRate(new TimerTask() {
+                    @Override
+                    public void run() {
+                        statusBar.updateWidget(widgetId);
+                    }
+                }, 0, 30_000);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -66,6 +73,7 @@ public class ClockStatusWidget implements StatusBarWidget {
         if (timer != null) {
             timer.cancel();
             timer.purge();
+            timer = null;
         }
     }
 }
