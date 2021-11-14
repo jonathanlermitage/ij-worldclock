@@ -2,7 +2,6 @@ import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 
 plugins {
     id("java")
-    id("idea")
     id("org.jetbrains.intellij") version "1.2.1" // https://github.com/JetBrains/gradle-intellij-plugin and https://lp.jetbrains.com/gradle-intellij-plugin/
     id("com.github.ben-manes.versions") version "0.39.0" // https://github.com/ben-manes/gradle-versions-plugin
 }
@@ -10,10 +9,8 @@ plugins {
 // Import variables from gradle.properties file
 val pluginIdeaVersion: String by project
 val pluginDownloadIdeaSources: String by project
-val pluginInstrumentPluginCode: String by project
 val pluginVersion: String by project
 val pluginJavaVersion: String by project
-val pluginEnableBuildSearchableOptions: String by project
 
 val inCI = System.getenv("CI") != null
 
@@ -32,7 +29,6 @@ dependencies {
 
 intellij {
     downloadSources.set(pluginDownloadIdeaSources.toBoolean() && !inCI)
-    instrumentCode.set(pluginInstrumentPluginCode.toBoolean())
     pluginName.set("WorldClock")
     sandboxDir.set("${rootProject.projectDir}/.idea-sandbox/${shortIdeVersion(pluginIdeaVersion)}")
     updateSinceUntilBuild.set(false)
