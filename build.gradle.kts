@@ -23,10 +23,6 @@ repositories {
     mavenCentral()
 }
 
-dependencies {
-    implementation("icu4j:icu4j:2.6.1")
-}
-
 intellij {
     downloadSources.set(pluginDownloadIdeaSources.toBoolean() && !inCI)
     pluginName.set("WorldClock")
@@ -63,6 +59,7 @@ tasks {
     }
     runIde {
         jvmArgs = listOf("-Xms768m", "-Xmx2048m", "--add-exports", "java.base/jdk.internal.vm=ALL-UNNAMED")
+        autoReloadPlugins.set(true)
     }
     buildSearchableOptions {
         enabled = false
