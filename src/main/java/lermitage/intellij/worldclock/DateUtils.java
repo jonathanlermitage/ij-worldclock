@@ -29,7 +29,6 @@ public class DateUtils {
         return getAllAvailableTZAndFlags().get(tz);
     }
 
-
     private static final Map<String, String> zoneIdAndFlag = new LinkedHashMap<>();
 
     public static Map<String, String> getAllAvailableTZAndFlags() {
@@ -639,17 +638,6 @@ public class DateUtils {
                 }
             }
         });
-
-        /*supportedJVMZoneIds.stream().sorted().forEach(jvmZoneId -> {
-            String[] cas = TimeZone.getAvailableIDs("ca");
-            if (!zoneIdAndFlag.containsKey(jvmZoneId) && !jvmZoneId.contains("+")
-                    && !jvmZoneId.toUpperCase().equals(jvmZoneId)
-                    && !jvmZoneId.startsWith("Etc")
-                    && !jvmZoneId.startsWith("System")
-                    && jvmZoneId.contains("/")) {
-                LOG.warn(jvmZoneId + " has no flag!");
-            }
-        });*/
 
         return zoneIdAndFlag;
     }
