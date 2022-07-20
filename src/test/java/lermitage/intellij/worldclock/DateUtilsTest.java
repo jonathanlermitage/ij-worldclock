@@ -18,11 +18,13 @@ public class DateUtilsTest {
 
     private static final Set<String> JVM_AVAILABLE_ZONE_IDS = ZoneId.getAvailableZoneIds();
 
-    private static Stream<Arguments> providerAllAvailableTZAndFlags() {
+    private static Stream<Arguments> providerAllAvailableTZWithFlags() {
         Map<String, String> allAvailableTZAndFlags = DateUtils.getAllAvailableTZAndFlags();
         Stream.Builder<Arguments> dataStream = Stream.builder();
         for (String key : allAvailableTZAndFlags.keySet()) {
-            dataStream.add(Arguments.of(key, allAvailableTZAndFlags.get(key)));
+            if (!key.startsWith("GMT") && !key.equals("UTC") && !key.equals("CST") && !key.equals("EST") && !key.equals("PST")) {
+                dataStream.add(Arguments.of(key, allAvailableTZAndFlags.get(key)));
+            }
         }
         return dataStream.build();
     }
@@ -33,7 +35,7 @@ public class DateUtilsTest {
     }
 
     @ParameterizedTest
-    @MethodSource("providerAllAvailableTZAndFlags")
+    @MethodSource("providerAllAvailableTZWithFlags")
     void timezone_should_be_supported_by_jvm(String tz, String flag) {
         assertNotNull(tz);
         assertNotNull(flag);
@@ -41,13 +43,13 @@ public class DateUtilsTest {
     }
 
     @ParameterizedTest
-    @MethodSource("providerAllAvailableTZAndFlags")
+    @MethodSource("providerAllAvailableTZWithFlags")
     void getDate_should_work_with_tz(String tz) {
         assertTrue(DateUtils.getDate(ZoneId.of(tz)).length() > 0);
     }
 
     @ParameterizedTest
-    @MethodSource("providerAllAvailableTZAndFlags")
+    @MethodSource("providerAllAvailableTZWithFlags")
     void findFlagByTz_should_work_with_tz(String tz) {
         assertTrue(DateUtils.findFlagByTz(tz).length() > 0);
     }

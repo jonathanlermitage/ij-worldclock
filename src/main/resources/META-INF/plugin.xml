@@ -10,6 +10,10 @@
     </description>
 
     <change-notes><![CDATA[
+    1.3.0 (WIP)
+    <ul>
+      <li>Add CST, EST, PST and UTC timezones.</li>
+    </ul>
     1.2.0 (2022/05/07)
     <ul>
       <li>Code rework.</li>

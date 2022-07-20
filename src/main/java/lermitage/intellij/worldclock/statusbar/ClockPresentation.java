@@ -14,6 +14,7 @@ import javax.swing.Icon;
 import java.awt.event.MouseEvent;
 import java.time.Instant;
 import java.time.ZoneId;
+import java.util.TimeZone;
 
 class ClockPresentation implements StatusBarWidget.MultipleTextValuesPresentation {
 
@@ -27,12 +28,17 @@ class ClockPresentation implements StatusBarWidget.MultipleTextValuesPresentatio
 
     @Override
     public String getTooltipText() {
-        ZoneId zoneId;
         if (widgetId.equals(Globals.WIDGET_ID)) {
-            zoneId = ZoneId.of(settingsService.getClock1TZ());
-        } else {
-            zoneId = ZoneId.of(settingsService.getClock2TZ());
+            return getTooltipFromConfiguredTz(settingsService.getClock1TZ());
         }
+        return getTooltipFromConfiguredTz(settingsService.getClock2TZ());
+    }
+
+    private String getTooltipFromConfiguredTz(String tz) {
+        if (tz.startsWith("GMT") || tz.equals("UTC") || tz.equals("CST") || tz.equals("EST") || tz.equals("PST")) {
+            return tz;
+        }
+        ZoneId zoneId = ZoneId.of(tz);
         return zoneId.getId() + " (GMT " + zoneId.getRules().getStandardOffset(Instant.now()).toString() + ")";
     }
 
@@ -52,13 +58,21 @@ class ClockPresentation implements StatusBarWidget.MultipleTextValuesPresentatio
             if (!settingsService.getEnableClock1()) {
                 return null;
             }
-            return " " + DateUtils.getDate(ZoneId.of(settingsService.getClock1TZ()));
+            return getDateFromConfiguredTz(settingsService.getClock1TZ());
         } else {
             if (!settingsService.getEnableClock2()) {
                 return null;
             }
-            return " " + DateUtils.getDate(ZoneId.of(settingsService.getClock2TZ()));
+            return getDateFromConfiguredTz(settingsService.getClock2TZ());
         }
+    }
+
+    private String getDateFromConfiguredTz(String tz) {
+        if (tz.startsWith("GMT") || tz.equals("UTC") || tz.equals("CST") || tz.equals("EST") || tz.equals("PST")) {
+            ZoneId zoneId = TimeZone.getTimeZone(tz).toZoneId();
+            return tz + ": " + DateUtils.getDate(zoneId);
+        }
+        return " " + DateUtils.getDate(ZoneId.of(tz));
     }
 
     @Override
@@ -75,6 +89,10 @@ class ClockPresentation implements StatusBarWidget.MultipleTextValuesPresentatio
                 return null;
             }
         }
-        return IconLoader.getIcon("/worldclock/flags/" + DateUtils.findFlagByTz(zoneId) + ".svg", ClockPresentation.class);
+        String flag = DateUtils.findFlagByTz(zoneId);
+        if (flag == null) {
+            return null;
+        }
+        return IconLoader.getIcon("/worldclock/flags/" + flag + ".svg", ClockPresentation.class);
     }
 }

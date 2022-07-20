@@ -639,6 +639,16 @@ public class DateUtils {
             }
         });
 
+        zoneIdAndFlag.put("CST", null);
+        zoneIdAndFlag.put("EST", null);
+        zoneIdAndFlag.put("PST", null);
+        zoneIdAndFlag.put("UTC", null);
+        for (int offset = 1; offset < 13 ; offset++) {
+            String normalized_offset = String.format("%02d", offset);
+            zoneIdAndFlag.put("GMT+" + normalized_offset, null);
+            zoneIdAndFlag.put("GMT-" + normalized_offset, null);
+        }
+
         return zoneIdAndFlag;
     }
 }
