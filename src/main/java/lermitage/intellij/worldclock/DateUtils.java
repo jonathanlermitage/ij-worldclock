@@ -420,7 +420,7 @@ public class DateUtils {
         });
         unsupportedZoneIds.forEach(zoneIdAndFlag::remove);
 
-        supportedJVMZoneIds.stream().sorted().forEach(jvmZoneId -> {
+        supportedJVMZoneIds.stream().forEach(jvmZoneId -> {
             if (!zoneIdAndFlag.containsKey(jvmZoneId)) {
 
                 // add zoneIds not supported by UCU4J. Generic associations
@@ -643,6 +643,7 @@ public class DateUtils {
         zoneIdAndFlag.put("EST", null);
         zoneIdAndFlag.put("PST", null);
         zoneIdAndFlag.put("UTC", null);
+        zoneIdAndFlag.put("GMT+00", null);
         for (int offset = 1; offset < 13 ; offset++) {
             String normalized_offset = String.format("%02d", offset);
             zoneIdAndFlag.put("GMT+" + normalized_offset, null);

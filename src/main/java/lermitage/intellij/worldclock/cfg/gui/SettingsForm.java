@@ -14,6 +14,7 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.event.ActionListener;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,7 +43,9 @@ public class SettingsForm implements Configurable {
         String configuredClock1TZ = settingsService.getClock1TZ();
         String configuredClock2TZ = settingsService.getClock2TZ();
 
-        List<String> tzs = DateUtils.getAllAvailableTZAndFlags().keySet().stream().sorted().collect(Collectors.toList());
+        List<String> tzs = DateUtils.getAllAvailableTZAndFlags().keySet().stream()
+                .sorted(Comparator.comparing(String::toUpperCase))
+                .collect(Collectors.toList());
         for (int placeIdx = 0; placeIdx < tzs.size(); placeIdx++) {
             clock1Place.addItem(tzs.get(placeIdx));
             clock2Place.addItem(tzs.get(placeIdx));
@@ -89,7 +92,9 @@ public class SettingsForm implements Configurable {
         String configuredClock1TZ = settingsService.getClock1TZ();
         String configuredClock2TZ = settingsService.getClock2TZ();
 
-        List<String> tzs = DateUtils.getAllAvailableTZAndFlags().keySet().stream().sorted().collect(Collectors.toList());
+        List<String> tzs = DateUtils.getAllAvailableTZAndFlags().keySet().stream()
+                .sorted(Comparator.comparing(String::toUpperCase))
+                .collect(Collectors.toList());
         for (int placeIdx = 0; placeIdx < tzs.size(); placeIdx++) {
             if (tzs.get(placeIdx).equalsIgnoreCase(configuredClock1TZ)) {
                 clock1Place.setSelectedIndex(placeIdx);
