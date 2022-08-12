@@ -44,8 +44,14 @@ public class DateUtilsTest {
 
     @ParameterizedTest
     @MethodSource("providerAllAvailableTZWithFlags")
-    void getDate_should_work_with_tz(String tz) {
-        assertTrue(DateUtils.getDate(ZoneId.of(tz)).length() > 0);
+    void getDate_12h_should_work_with_tz(String tz) {
+        assertTrue(DateUtils.getDate(ZoneId.of(tz), false).length() > 0);
+    }
+
+    @ParameterizedTest
+    @MethodSource("providerAllAvailableTZWithFlags")
+    void getDate_24h_should_work_with_tz(String tz) {
+        assertTrue(DateUtils.getDate(ZoneId.of(tz), true).length() > 0);
     }
 
     @ParameterizedTest

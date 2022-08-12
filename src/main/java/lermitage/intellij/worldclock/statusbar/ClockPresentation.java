@@ -70,9 +70,9 @@ class ClockPresentation implements StatusBarWidget.MultipleTextValuesPresentatio
     private String getDateFromConfiguredTz(String tz) {
         if (tz.startsWith("GMT") || tz.equals("UTC") || tz.equals("CST") || tz.equals("EST") || tz.equals("PST")) {
             ZoneId zoneId = TimeZone.getTimeZone(tz).toZoneId();
-            return tz + ": " + DateUtils.getDate(zoneId);
+            return tz + ": " + DateUtils.getDate(zoneId, settingsService.getUse24HDateFormat());
         }
-        return " " + DateUtils.getDate(ZoneId.of(tz));
+        return " " + DateUtils.getDate(ZoneId.of(tz), settingsService.getUse24HDateFormat());
     }
 
     @Override

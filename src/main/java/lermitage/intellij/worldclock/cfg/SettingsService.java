@@ -18,9 +18,9 @@ public class SettingsService implements PersistentStateComponent<SettingsService
 
     public String clock1TZ;
     public String clock2TZ;
-    public String dateFormat; // todo config UI
     public Boolean enableClock1;
     public Boolean enableClock2;
+    public Boolean use24HDateFormat;
 
     @Override
     public SettingsService getState() {
@@ -50,14 +50,6 @@ public class SettingsService implements PersistentStateComponent<SettingsService
         this.clock2TZ = clock2TZ;
     }
 
-    public String getDateFormat() {
-        return dateFormat == null ? Defaults.DATE_FORMAT : dateFormat;
-    }
-
-    public void setDateFormat(String dateFormat) {
-        this.dateFormat = dateFormat;
-    }
-
     public Boolean getEnableClock1() {
         return enableClock1 == null ? Defaults.ENABLE_CLOCK_1 : enableClock1;
     }
@@ -72,5 +64,13 @@ public class SettingsService implements PersistentStateComponent<SettingsService
 
     public void setEnableClock2(Boolean enableClock2) {
         this.enableClock2 = enableClock2;
+    }
+
+    public Boolean getUse24HDateFormat() {
+        return use24HDateFormat != null && use24HDateFormat;
+    }
+
+    public void setUse24HDateFormat(Boolean use24HDateFormat) {
+        this.use24HDateFormat = use24HDateFormat;
     }
 }

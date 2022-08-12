@@ -1,7 +1,6 @@
 package lermitage.intellij.worldclock;
 
 import com.intellij.openapi.diagnostic.Logger;
-import lermitage.intellij.worldclock.cfg.Defaults;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -19,10 +18,12 @@ public class DateUtils {
     // Examples:
     // E hh:mm a  -> Tue 08:29 PM
     // EEEE HH:mm -> Tuesday 20:39
-    private static final DateTimeFormatter DATETIME_FORMAT = DateTimeFormatter.ofPattern(Defaults.DATE_FORMAT);
+    private static final DateTimeFormatter DATETIME_FORMAT_12H = DateTimeFormatter.ofPattern("E hh:mm a");
+    private static final DateTimeFormatter DATETIME_FORMAT_24H = DateTimeFormatter.ofPattern("E HH:mm");
 
-    public static String getDate(ZoneId zoneId) {
-        return DATETIME_FORMAT.format(LocalDateTime.now(zoneId));
+    public static String getDate(ZoneId zoneId, boolean use24HDateFormat) {
+        DateTimeFormatter dtf = use24HDateFormat ? DATETIME_FORMAT_24H : DATETIME_FORMAT_12H;
+        return dtf.format(LocalDateTime.now(zoneId));
     }
 
     public static String findFlagByTz(String tz) {
@@ -644,7 +645,7 @@ public class DateUtils {
         zoneIdAndFlag.put("PST", null);
         zoneIdAndFlag.put("UTC", null);
         zoneIdAndFlag.put("GMT+00", null);
-        for (int offset = 1; offset < 13 ; offset++) {
+        for (int offset = 1; offset < 13; offset++) {
             String normalized_offset = String.format("%02d", offset);
             zoneIdAndFlag.put("GMT+" + normalized_offset, null);
             zoneIdAndFlag.put("GMT-" + normalized_offset, null);

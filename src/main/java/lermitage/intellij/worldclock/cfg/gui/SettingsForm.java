@@ -26,6 +26,7 @@ public class SettingsForm implements Configurable {
     private JLabel clock2Label;
     private JComboBox<String> clock2Place;
     private JCheckBox clock2Enable;
+    private JCheckBox use24HDateFormat;
 
     private boolean modified = false;
     private final SettingsService settingsService = ApplicationManager.getApplication().getService(SettingsService.class);
@@ -69,6 +70,10 @@ public class SettingsForm implements Configurable {
         clock2Enable.setSelected(settingsService.getEnableClock2());
         clock2Enable.addActionListener(actionListener);
 
+        use24HDateFormat.setText("Use 24-hour time format");
+        use24HDateFormat.setSelected(settingsService.getUse24HDateFormat());
+        use24HDateFormat.addActionListener(actionListener);
+
         return mainPane;
     }
 
@@ -83,6 +88,7 @@ public class SettingsForm implements Configurable {
         settingsService.setClock2TZ((String) clock2Place.getSelectedItem());
         settingsService.setEnableClock1(clock1Enable.isSelected());
         settingsService.setEnableClock2(clock2Enable.isSelected());
+        settingsService.setUse24HDateFormat(use24HDateFormat.isSelected());
         modified = false;
         IJUtils.refreshOpenedProjects();
     }
@@ -106,6 +112,7 @@ public class SettingsForm implements Configurable {
 
         clock1Enable.setSelected(settingsService.getEnableClock1());
         clock2Enable.setSelected(settingsService.getEnableClock2());
+        use24HDateFormat.setSelected(settingsService.getUse24HDateFormat());
         modified = false;
     }
 }
