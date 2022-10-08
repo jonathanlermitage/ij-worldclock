@@ -10,6 +10,10 @@
     </description>
 
     <change-notes><![CDATA[
+    1.5.0 (2022/10/08)
+    <ul>
+      <li>Introduce flags themes. Select your theme in Settings.</li>
+    </ul>
     1.4.0 (2022/08/12)
     <ul>
       <li>Add an option to use 24-hour time format.</li>

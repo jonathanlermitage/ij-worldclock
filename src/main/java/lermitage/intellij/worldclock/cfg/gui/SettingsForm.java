@@ -4,6 +4,7 @@ import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.options.Configurable;
 import lermitage.intellij.worldclock.DateUtils;
 import lermitage.intellij.worldclock.IJUtils;
+import lermitage.intellij.worldclock.cfg.Defaults;
 import lermitage.intellij.worldclock.cfg.SettingsService;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.Nullable;
@@ -27,6 +28,8 @@ public class SettingsForm implements Configurable {
     private JComboBox<String> clock2Place;
     private JCheckBox clock2Enable;
     private JCheckBox use24HDateFormat;
+    private JComboBox<String> themeComboBox;
+    private JLabel themeLabel;
 
     private boolean modified = false;
     private final SettingsService settingsService = ApplicationManager.getApplication().getService(SettingsService.class);
@@ -74,6 +77,16 @@ public class SettingsForm implements Configurable {
         use24HDateFormat.setSelected(settingsService.getUse24HDateFormat());
         use24HDateFormat.addActionListener(actionListener);
 
+        themeLabel.setText("Flags theme:");
+        themeComboBox.addItem("default flags");
+        themeComboBox.addItem("flags with rounded borders (for now, only FR and CA. Help needed 🙂)");
+        if (settingsService.getTheme().equals(Defaults.FLAGS_THEME_FOLDER)) {
+            themeComboBox.setSelectedIndex(0);
+        } else {
+            themeComboBox.setSelectedIndex(1);
+        }
+        themeComboBox.addActionListener(actionListener);
+
         return mainPane;
     }
 
@@ -89,6 +102,11 @@ public class SettingsForm implements Configurable {
         settingsService.setEnableClock1(clock1Enable.isSelected());
         settingsService.setEnableClock2(clock2Enable.isSelected());
         settingsService.setUse24HDateFormat(use24HDateFormat.isSelected());
+        if (themeComboBox.getSelectedIndex() == 0) {
+            settingsService.setTheme(Defaults.FLAGS_THEME_FOLDER);
+        } else {
+            settingsService.setTheme(Defaults.FLAGS_WITH_ROUNDED_BORDERS_THEME_FOLDER);
+        }
         modified = false;
         IJUtils.refreshOpenedProjects();
     }
@@ -113,6 +131,11 @@ public class SettingsForm implements Configurable {
         clock1Enable.setSelected(settingsService.getEnableClock1());
         clock2Enable.setSelected(settingsService.getEnableClock2());
         use24HDateFormat.setSelected(settingsService.getUse24HDateFormat());
+        if (settingsService.getTheme().equals(Defaults.FLAGS_THEME_FOLDER)) {
+            themeComboBox.setSelectedIndex(0);
+        } else {
+            themeComboBox.setSelectedIndex(1);
+        }
         modified = false;
     }
 }

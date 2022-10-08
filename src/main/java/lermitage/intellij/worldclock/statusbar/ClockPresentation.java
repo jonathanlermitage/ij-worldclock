@@ -7,6 +7,7 @@ import com.intellij.openapi.wm.StatusBarWidget;
 import com.intellij.util.Consumer;
 import lermitage.intellij.worldclock.DateUtils;
 import lermitage.intellij.worldclock.Globals;
+import lermitage.intellij.worldclock.cfg.Defaults;
 import lermitage.intellij.worldclock.cfg.SettingsService;
 import org.jetbrains.annotations.Nullable;
 
@@ -93,6 +94,10 @@ class ClockPresentation implements StatusBarWidget.MultipleTextValuesPresentatio
         if (flag == null) {
             return null;
         }
-        return IconLoader.getIcon("/worldclock/flags/" + flag + ".svg", ClockPresentation.class);
+        String icon_path = "/worldclock/" + settingsService.getTheme() + "/" + flag + ".svg";
+        if (ClockPresentation.class.getResource(icon_path) != null) {
+            return IconLoader.getIcon(icon_path, ClockPresentation.class);
+        }
+        return IconLoader.getIcon("/worldclock/" + Defaults.FLAGS_THEME_FOLDER + "/" + flag + ".svg", ClockPresentation.class);
     }
 }

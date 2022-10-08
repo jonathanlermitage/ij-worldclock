@@ -9,4 +9,7 @@ public class Defaults {
 
     public static final Boolean ENABLE_CLOCK_1 = true;
     public static final Boolean ENABLE_CLOCK_2 = true;
+
+    public static final String FLAGS_THEME_FOLDER = "default_flags";
+    public static final String FLAGS_WITH_ROUNDED_BORDERS_THEME_FOLDER = "flags_with_rounded_borders";
 }

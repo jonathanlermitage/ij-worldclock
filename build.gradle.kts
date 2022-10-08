@@ -3,7 +3,7 @@ import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 plugins {
     id("java")
     id("jacoco")
-    id("org.jetbrains.intellij") version "1.5.3" // https://github.com/JetBrains/gradle-intellij-plugin and https://lp.jetbrains.com/gradle-intellij-plugin/
+    id("org.jetbrains.intellij") version "1.9.0" // https://github.com/JetBrains/gradle-intellij-plugin and https://lp.jetbrains.com/gradle-intellij-plugin/
     id("com.github.ben-manes.versions") version "0.42.0" // https://github.com/ben-manes/gradle-versions-plugin
 }
 
@@ -15,7 +15,7 @@ val pluginJavaVersion: String by project
 
 val inCI = System.getenv("CI") != null
 
-val junitVersion = "5.8.2"
+val junitVersion = "5.9.1"
 logger.quiet("Will use IDEA $pluginIdeaVersion and Java $pluginJavaVersion")
 
 group = "lermitage.intellij.worldclock"
@@ -29,6 +29,7 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVersion")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
     testImplementation("org.junit.jupiter:junit-jupiter-params:$junitVersion")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.9.1")
 }
 
 intellij {

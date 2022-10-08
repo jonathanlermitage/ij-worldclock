@@ -21,6 +21,7 @@ public class SettingsService implements PersistentStateComponent<SettingsService
     public Boolean enableClock1;
     public Boolean enableClock2;
     public Boolean use24HDateFormat;
+    public String theme;
 
     @Override
     public SettingsService getState() {
@@ -72,5 +73,13 @@ public class SettingsService implements PersistentStateComponent<SettingsService
 
     public void setUse24HDateFormat(Boolean use24HDateFormat) {
         this.use24HDateFormat = use24HDateFormat;
+    }
+
+    public String getTheme() {
+        return theme == null ? Defaults.FLAGS_THEME_FOLDER : theme;
+    }
+
+    public void setTheme(String theme) {
+        this.theme = theme;
     }
 }
