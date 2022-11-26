@@ -10,6 +10,10 @@
     </description>
 
     <change-notes><![CDATA[
+    1.5.1 (2022/11/26)
+    <ul>
+      <li>Remove usage of deprecated JetBrains API, fix compatibility with future IDE releases.</li>
+    </ul>
     1.5.0 (2022/10/08)
     <ul>
       <li>Introduce flags themes. Select your theme in Settings.</li>

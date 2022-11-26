@@ -43,12 +43,12 @@ class ClockPresentation implements StatusBarWidget.MultipleTextValuesPresentatio
         return zoneId.getId() + " (GMT " + zoneId.getRules().getStandardOffset(Instant.now()).toString() + ")";
     }
 
-    @Override
+    // removed @Override as MultipleTextValuesPresentation.getClickConsumer is scheduled for removal in a future release
     public @Nullable Consumer<MouseEvent> getClickConsumer() {
         return null;
     }
 
-    @Override
+    // removed @Override as MultipleTextValuesPresentation.getPopupStep is scheduled for removal in a future release
     public @Nullable("null means the widget is unable to show the popup") ListPopup getPopupStep() {
         return null;
     }
