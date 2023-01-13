@@ -39,19 +39,19 @@ public class DateUtilsTest {
     void timezone_should_be_supported_by_jvm(String tz, String flag) {
         assertNotNull(tz);
         assertNotNull(flag);
-        assertTrue(JVM_AVAILABLE_ZONE_IDS.contains(tz));
+        assertTrue(JVM_AVAILABLE_ZONE_IDS.contains(DateUtils.getAliases().getOrDefault(tz, tz)));
     }
 
     @ParameterizedTest
     @MethodSource("providerAllAvailableTZWithFlags")
     void getDate_12h_should_work_with_tz(String tz) {
-        assertTrue(DateUtils.getDate(ZoneId.of(tz), false).length() > 0);
+        assertTrue(DateUtils.getDate(tz, false).length() > 0);
     }
 
     @ParameterizedTest
     @MethodSource("providerAllAvailableTZWithFlags")
     void getDate_24h_should_work_with_tz(String tz) {
-        assertTrue(DateUtils.getDate(ZoneId.of(tz), true).length() > 0);
+        assertTrue(DateUtils.getDate(tz, true).length() > 0);
     }
 
     @ParameterizedTest

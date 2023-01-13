@@ -39,7 +39,7 @@ class ClockPresentation implements StatusBarWidget.MultipleTextValuesPresentatio
         if (tz.startsWith("GMT") || tz.equals("UTC") || tz.equals("CST") || tz.equals("EST") || tz.equals("PST")) {
             return tz;
         }
-        ZoneId zoneId = ZoneId.of(tz);
+        ZoneId zoneId = ZoneId.of(DateUtils.getAliases().getOrDefault(tz, tz));
         return zoneId.getId() + " (GMT " + zoneId.getRules().getStandardOffset(Instant.now()).toString() + ")";
     }
 
@@ -71,9 +71,9 @@ class ClockPresentation implements StatusBarWidget.MultipleTextValuesPresentatio
     private String getDateFromConfiguredTz(String tz) {
         if (tz.startsWith("GMT") || tz.equals("UTC") || tz.equals("CST") || tz.equals("EST") || tz.equals("PST")) {
             ZoneId zoneId = TimeZone.getTimeZone(tz).toZoneId();
-            return tz + ": " + DateUtils.getDate(zoneId, settingsService.getUse24HDateFormat());
+            return tz + ": " + DateUtils.getDate(tz, settingsService.getUse24HDateFormat());
         }
-        return " " + DateUtils.getDate(ZoneId.of(tz), settingsService.getUse24HDateFormat());
+        return " " + DateUtils.getDate(tz, settingsService.getUse24HDateFormat());
     }
 
     @Override

@@ -5,6 +5,7 @@ import com.intellij.openapi.diagnostic.Logger;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -21,9 +22,9 @@ public class DateUtils {
     private static final DateTimeFormatter DATETIME_FORMAT_12H = DateTimeFormatter.ofPattern("E hh:mm a");
     private static final DateTimeFormatter DATETIME_FORMAT_24H = DateTimeFormatter.ofPattern("E HH:mm");
 
-    public static String getDate(ZoneId zoneId, boolean use24HDateFormat) {
+    public static String getDate(String zoneId, boolean use24HDateFormat) {
         DateTimeFormatter dtf = use24HDateFormat ? DATETIME_FORMAT_24H : DATETIME_FORMAT_12H;
-        return dtf.format(LocalDateTime.now(zoneId));
+        return dtf.format(LocalDateTime.now(ZoneId.of(getAliases().getOrDefault(zoneId, zoneId))));
     }
 
     public static String findFlagByTz(String tz) {
@@ -31,6 +32,7 @@ public class DateUtils {
     }
 
     private static final Map<String, String> zoneIdAndFlag = new LinkedHashMap<>();
+    private static final Map<String, String> aliases = new HashMap<>();
 
     public static Map<String, String> getAllAvailableTZAndFlags() {
         if (!zoneIdAndFlag.isEmpty()) {
@@ -640,6 +642,12 @@ public class DateUtils {
             }
         });
 
+        // aliases
+        zoneIdAndFlag.put("Asia/Bangalore", "in");
+        zoneIdAndFlag.put("Asia/Delhi", "in");
+        zoneIdAndFlag.put("Asia/Hyderabad", "in");
+        zoneIdAndFlag.put("Asia/Mumbai", "in");
+
         zoneIdAndFlag.put("CST", null);
         zoneIdAndFlag.put("EST", null);
         zoneIdAndFlag.put("PST", null);
@@ -652,5 +660,16 @@ public class DateUtils {
         }
 
         return zoneIdAndFlag;
+    }
+
+    public static Map<String, String> getAliases() {
+        if (!aliases.isEmpty()) {
+            return aliases;
+        }
+        aliases.put("Asia/Bangalore", "Asia/Kolkata");
+        aliases.put("Asia/Delhi", "Asia/Kolkata");
+        aliases.put("Asia/Hyderabad", "Asia/Kolkata");
+        aliases.put("Asia/Mumbai", "Asia/Kolkata");
+        return aliases;
     }
 }
