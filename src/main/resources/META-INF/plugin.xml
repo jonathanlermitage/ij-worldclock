@@ -10,6 +10,11 @@
     </description>
 
     <change-notes><![CDATA[
+    1.6.0 (WIP)
+    <ul>
+      <li>Add TimeZones aliases support.</li>
+      <li>Add some Indian cities.</li>
+    </ul>
     1.5.1 (2022/11/26)
     <ul>
       <li>Remove usage of deprecated JetBrains API, fix compatibility with future IDE releases.</li>
