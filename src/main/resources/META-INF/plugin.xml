@@ -10,9 +10,9 @@
     </description>
 
     <change-notes><![CDATA[
-    1.6.0 (WIP)
+    1.6.0 (2023/01/14)
     <ul>
-      <li>Add TimeZones aliases support.</li>
+      <li>Internal: add TimeZone aliases support.</li>
       <li>Add some Indian cities.</li>
     </ul>
     1.5.1 (2022/11/26)
@@ -48,7 +48,7 @@
     </change-notes>
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
-    <idea-version since-build="201"/>
+    <idea-version since-build="211"/>
 
     <!-- please see https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html#modules-available-in-all-products
          on how to target different products -->
