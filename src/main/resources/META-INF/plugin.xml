@@ -1,4 +1,4 @@
-<idea-plugin require-restart="false">
+<idea-plugin require-restart="true">
     <id>lermitage.intellij.worldclock</id>
     <name>World Clock</name>
     <version>REPLACED_BY_GRADLE</version>
@@ -9,46 +9,8 @@
     ]]>
     </description>
 
-    <change-notes><![CDATA[
-    1.6.0 (2023/01/14)
-    <ul>
-      <li>Internal: add TimeZone aliases support.</li>
-      <li>Add some Indian cities.</li>
-    </ul>
-    1.5.1 (2022/11/26)
-    <ul>
-      <li>Remove usage of deprecated JetBrains API, fix compatibility with future IDE releases.</li>
-    </ul>
-    1.5.0 (2022/10/08)
-    <ul>
-      <li>Introduce flags themes. Select your theme in Settings.</li>
-    </ul>
-    1.4.0 (2022/08/12)
-    <ul>
-      <li>Add an option to use 24-hour time format.</li>
-    </ul>
-    1.3.0 (2022/07/23)
-    <ul>
-      <li>Add CST, EST, PST and UTC timezones.</li>
-    </ul>
-    1.2.0 (2022/05/07)
-    <ul>
-      <li>Code rework.</li>
-      <li>Add missing timezones.</li>
-    </ul>
-    1.1.0 (2021/10/17)
-    <ul>
-      <li>First release.</li>
-    </ul>
-    1.0.0
-    <ul>
-      <li>POC. Not published.</li>
-    </ul>
-    ]]>
-    </change-notes>
-
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
-    <idea-version since-build="211"/>
+    <idea-version since-build="231.6890.12"/>
 
     <!-- please see https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html#modules-available-in-all-products
          on how to target different products -->
@@ -69,9 +31,5 @@
                                  displayName="World Clock"
                                  parentId="appearance"/>
     </extensions>
-
-    <actions>
-        <!-- Add your actions here -->
-    </actions>
 
 </idea-plugin>
