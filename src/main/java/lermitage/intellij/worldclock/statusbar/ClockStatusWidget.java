@@ -1,6 +1,7 @@
 package lermitage.intellij.worldclock.statusbar;
 
 import com.intellij.openapi.application.ApplicationManager;
+import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.wm.StatusBar;
 import com.intellij.openapi.wm.StatusBarWidget;
@@ -16,6 +17,8 @@ import java.util.TimerTask;
 
 @SuppressWarnings("WeakerAccess")
 public class ClockStatusWidget implements StatusBarWidget {
+
+    private static final Logger LOGGER = Logger.getInstance(ClockStatusWidget.class);
 
     private final SettingsService settingsService = ApplicationManager.getApplication().getService(SettingsService.class);
 
@@ -63,7 +66,7 @@ public class ClockStatusWidget implements StatusBarWidget {
                     }
                 }, 0, 30_000);
             } catch (Exception e) {
-                e.printStackTrace();
+                LOGGER.warn(e);
             }
         }
     }

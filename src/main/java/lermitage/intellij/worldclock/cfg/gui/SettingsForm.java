@@ -9,15 +9,10 @@ import lermitage.intellij.worldclock.cfg.SettingsService;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.Nullable;
 
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JComponent;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class SettingsForm implements Configurable {
     private JPanel mainPane;
@@ -32,7 +27,6 @@ public class SettingsForm implements Configurable {
     private JLabel themeLabel;
 
     private boolean modified = false;
-    private final SettingsService settingsService = ApplicationManager.getApplication().getService(SettingsService.class);
 
     @Nls(capitalization = Nls.Capitalization.Title)
     @Override
@@ -42,6 +36,8 @@ public class SettingsForm implements Configurable {
 
     @Override
     public @Nullable JComponent createComponent() {
+        SettingsService settingsService = ApplicationManager.getApplication().getService(SettingsService.class);
+
         ActionListener actionListener = e -> modified = true;
 
         String configuredClock1TZ = settingsService.getClock1TZ();
@@ -49,7 +45,7 @@ public class SettingsForm implements Configurable {
 
         List<String> tzs = DateUtils.getAllAvailableTZAndFlags().keySet().stream()
                 .sorted(Comparator.comparing(String::toUpperCase))
-                .collect(Collectors.toList());
+                .toList();
         for (int placeIdx = 0; placeIdx < tzs.size(); placeIdx++) {
             clock1Place.addItem(tzs.get(placeIdx));
             clock2Place.addItem(tzs.get(placeIdx));
@@ -97,6 +93,8 @@ public class SettingsForm implements Configurable {
 
     @Override
     public void apply() {
+        SettingsService settingsService = ApplicationManager.getApplication().getService(SettingsService.class);
+
         settingsService.setClock1TZ((String) clock1Place.getSelectedItem());
         settingsService.setClock2TZ((String) clock2Place.getSelectedItem());
         settingsService.setEnableClock1(clock1Enable.isSelected());
@@ -113,12 +111,14 @@ public class SettingsForm implements Configurable {
 
     @Override
     public void reset() {
+        SettingsService settingsService = ApplicationManager.getApplication().getService(SettingsService.class);
+
         String configuredClock1TZ = settingsService.getClock1TZ();
         String configuredClock2TZ = settingsService.getClock2TZ();
 
         List<String> tzs = DateUtils.getAllAvailableTZAndFlags().keySet().stream()
                 .sorted(Comparator.comparing(String::toUpperCase))
-                .collect(Collectors.toList());
+                .toList();
         for (int placeIdx = 0; placeIdx < tzs.size(); placeIdx++) {
             if (tzs.get(placeIdx).equalsIgnoreCase(configuredClock1TZ)) {
                 clock1Place.setSelectedIndex(placeIdx);

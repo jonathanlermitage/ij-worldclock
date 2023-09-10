@@ -1,7 +1,8 @@
 # World Clock Change Log
 
-## 1.6.1 (WIP)
+## 1.6.1 (2023/09/10)
 * Fix rendering of `uz` (Asia/Samarkand, Asia/Tashkent) and `ve` (America/Caracas) flags in 2023.2 IDEs.
+* Some code rework.
 
 ## 1.6.0 (2023/01/14)
 * Internal: add TimeZone aliases support.

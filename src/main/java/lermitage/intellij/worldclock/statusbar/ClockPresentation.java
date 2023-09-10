@@ -17,8 +17,6 @@ import java.time.ZoneId;
 
 class ClockPresentation implements StatusBarWidget.MultipleTextValuesPresentation {
 
-    private final SettingsService settingsService = ApplicationManager.getApplication().getService(SettingsService.class);
-
     public ClockPresentation(String widgetId) {
         this.widgetId = widgetId;
     }
@@ -27,6 +25,8 @@ class ClockPresentation implements StatusBarWidget.MultipleTextValuesPresentatio
 
     @Override
     public String getTooltipText() {
+        SettingsService settingsService = ApplicationManager.getApplication().getService(SettingsService.class);
+
         if (widgetId.equals(Globals.WIDGET_ID)) {
             return getTooltipFromConfiguredTz(settingsService.getClock1TZ());
         }
@@ -48,6 +48,8 @@ class ClockPresentation implements StatusBarWidget.MultipleTextValuesPresentatio
 
     @Override
     public @Nullable String getSelectedValue() {
+        SettingsService settingsService = ApplicationManager.getApplication().getService(SettingsService.class);
+
         if (widgetId.equals(Globals.WIDGET_ID)) {
             if (!settingsService.getEnableClock1()) {
                 return null;
@@ -62,6 +64,8 @@ class ClockPresentation implements StatusBarWidget.MultipleTextValuesPresentatio
     }
 
     private String getDateFromConfiguredTz(String tz) {
+        SettingsService settingsService = ApplicationManager.getApplication().getService(SettingsService.class);
+
         if (tz.startsWith("GMT") || tz.equals("UTC") || tz.equals("CST") || tz.equals("EST") || tz.equals("PST")) {
             return tz + ": " + DateUtils.getDate(tz, settingsService.getUse24HDateFormat());
         }
@@ -70,6 +74,8 @@ class ClockPresentation implements StatusBarWidget.MultipleTextValuesPresentatio
 
     @Override
     public @Nullable Icon getIcon() {
+        SettingsService settingsService = ApplicationManager.getApplication().getService(SettingsService.class);
+
         String zoneId;
         if (widgetId.equals(Globals.WIDGET_ID)) {
             if (!settingsService.getEnableClock1()) {
