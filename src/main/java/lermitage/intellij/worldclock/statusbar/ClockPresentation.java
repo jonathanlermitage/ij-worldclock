@@ -14,7 +14,6 @@ import javax.swing.*;
 import java.awt.event.MouseEvent;
 import java.time.Instant;
 import java.time.ZoneId;
-import java.util.TimeZone;
 
 class ClockPresentation implements StatusBarWidget.MultipleTextValuesPresentation {
 
