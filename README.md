@@ -10,7 +10,7 @@ By default, shows current time at Montreal (Canada) and Paris (France). See conf
 
 ## Build
 
-Install JDK11+. You should be able to start Gradle Wrapper (`gradlew`). See Gradle commands below.
+Install JDK17+. You should be able to start Gradle Wrapper (`gradlew`). See Gradle commands below.
 
 ### Gradle commands
 
