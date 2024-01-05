@@ -2,6 +2,7 @@ package lermitage.intellij.worldclock.cfg.gui;
 
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.options.Configurable;
+import com.intellij.ui.ComboboxSpeedSearch;
 import lermitage.intellij.worldclock.DateUtils;
 import lermitage.intellij.worldclock.IJUtils;
 import lermitage.intellij.worldclock.cfg.Defaults;
@@ -44,8 +45,8 @@ public class SettingsForm implements Configurable {
         String configuredClock2TZ = settingsService.getClock2TZ();
 
         List<String> tzs = DateUtils.getAllAvailableTZAndFlags().keySet().stream()
-                .sorted(Comparator.comparing(String::toUpperCase))
-                .toList();
+            .sorted(Comparator.comparing(String::toUpperCase))
+            .toList();
         for (int placeIdx = 0; placeIdx < tzs.size(); placeIdx++) {
             clock1Place.addItem(tzs.get(placeIdx));
             clock2Place.addItem(tzs.get(placeIdx));
@@ -62,12 +63,14 @@ public class SettingsForm implements Configurable {
         clock1Enable.setText("show in status bar");
         clock1Enable.setSelected(settingsService.getEnableClock1());
         clock1Enable.addActionListener(actionListener);
+        ComboboxSpeedSearch.installSpeedSearch(clock1Place, String::toString);
 
         clock2Label.setText("Clock #2 (right):");
         clock2Place.addActionListener(actionListener);
         clock2Enable.setText("show in status bar");
         clock2Enable.setSelected(settingsService.getEnableClock2());
         clock2Enable.addActionListener(actionListener);
+        ComboboxSpeedSearch.installSpeedSearch(clock2Place, String::toString);
 
         use24HDateFormat.setText("Use 24-hour time format");
         use24HDateFormat.setSelected(settingsService.getUse24HDateFormat());
@@ -117,8 +120,8 @@ public class SettingsForm implements Configurable {
         String configuredClock2TZ = settingsService.getClock2TZ();
 
         List<String> tzs = DateUtils.getAllAvailableTZAndFlags().keySet().stream()
-                .sorted(Comparator.comparing(String::toUpperCase))
-                .toList();
+            .sorted(Comparator.comparing(String::toUpperCase))
+            .toList();
         for (int placeIdx = 0; placeIdx < tzs.size(); placeIdx++) {
             if (tzs.get(placeIdx).equalsIgnoreCase(configuredClock1TZ)) {
                 clock1Place.setSelectedIndex(placeIdx);

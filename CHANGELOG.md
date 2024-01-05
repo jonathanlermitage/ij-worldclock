@@ -1,5 +1,8 @@
 # World Clock Change Log
 
+## 1.7.0 (2024/01/05)
+* Settings UI: the timezone choosers now integrate the **Speed Search** functionality, [similar to Speed Search for Tool Windows](https://www.jetbrains.com/help/idea/speed-search-in-the-tool-windows.html).
+
 ## 1.6.1 (2023/09/10)
 * Fix rendering of `uz` (Asia/Samarkand, Asia/Tashkent) and `ve` (America/Caracas) flags in 2023.2 IDEs.
 * Some code rework.
