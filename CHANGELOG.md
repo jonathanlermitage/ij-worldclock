@@ -1,5 +1,9 @@
 # World Clock Change Log
 
+## 1.7.1 (2024/02/21)
+* Fix Canadian rounded flag when using a dark theme.
+* Optimize many icons with recent version of SVGO.
+
 ## 1.7.0 (2024/01/05)
 * Settings UI: the timezone choosers now integrate the **Speed Search** functionality, [similar to Speed Search for Tool Windows](https://www.jetbrains.com/help/idea/speed-search-in-the-tool-windows.html).
 
