@@ -6,14 +6,15 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.wm.StatusBar;
 import com.intellij.openapi.wm.StatusBarWidget;
 import com.intellij.openapi.wm.WindowManager;
+import com.intellij.util.concurrency.AppExecutorUtil;
 import lermitage.intellij.worldclock.Globals;
 import lermitage.intellij.worldclock.cfg.SettingsService;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 @SuppressWarnings("WeakerAccess")
 public class ClockStatusWidget implements StatusBarWidget {
@@ -24,7 +25,7 @@ public class ClockStatusWidget implements StatusBarWidget {
 
     private final String widgetId;
     private final StatusBar statusBar;
-    private Timer timer;
+    private ScheduledFuture<?> timer;
 
     @Contract(pure = true)
     public ClockStatusWidget(String widgetId, Project project) {
@@ -56,15 +57,11 @@ public class ClockStatusWidget implements StatusBarWidget {
 
     private void startIfNeeded(StatusBar statusBar) {
         if (widgetId.equals(Globals.WIDGET_ID) && settingsService.getEnableClock1() ||
-                widgetId.equals(Globals.WIDGET_ID_2) && settingsService.getEnableClock2()) {
+            widgetId.equals(Globals.WIDGET_ID_2) && settingsService.getEnableClock2()) {
             try {
-                timer = new Timer();
-                timer.scheduleAtFixedRate(new TimerTask() {
-                    @Override
-                    public void run() {
-                        statusBar.updateWidget(widgetId);
-                    }
-                }, 0, 30_000);
+                timer = AppExecutorUtil.getAppScheduledExecutorService().scheduleWithFixedDelay(() -> {
+                    statusBar.updateWidget(widgetId);
+                }, 0, 30, TimeUnit.SECONDS);
             } catch (Exception e) {
                 LOGGER.warn(e);
             }
@@ -74,8 +71,7 @@ public class ClockStatusWidget implements StatusBarWidget {
     @Override
     public void dispose() {
         if (timer != null) {
-            timer.cancel();
-            timer.purge();
+            timer.cancel(true);
             timer = null;
         }
     }

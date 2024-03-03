@@ -1,5 +1,8 @@
 # World Clock Change Log
 
+## 1.7.2 (2024/03/04)
+* minor performance optimization: reduce threads spawning by using IDE thread pool and scheduler instead of starting new threads for scheduled tasks.
+
 ## 1.7.1 (2024/02/21)
 * Fix Canadian rounded flag when using a dark theme.
 * Optimize many icons with recent version of SVGO.
