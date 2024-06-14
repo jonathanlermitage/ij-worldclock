@@ -1,5 +1,8 @@
 # World Clock Change Log
 
+## 1.8.0 (2024/06/14)
+* integrate the new IDE [Exception Analyzer](https://plugins.jetbrains.com/docs/marketplace/exception-analyzer.html). This is an easy way to report plugin exceptions from IntelliJ Platform-based products to plugin developers right on JetBrains Marketplace, instead of opening an issue on the plugin's GitHub repository.
+
 ## 1.7.2 (2024/03/04)
 * minor performance optimization: reduce threads spawning by using IDE thread pool and scheduler instead of starting new threads for scheduled tasks.
 
